@@ -61,12 +61,11 @@ export function Providers({ children, session }: ProvidersProps) {
         >
           {children}
           <Toaster />
-          // 修改 ReactQueryDevtools 配置（大约第63-68行）
           {process.env.NODE_ENV === 'development' && (
             <ReactQueryDevtools 
               initialIsOpen={false} 
-              position={"bottom-right" as const}
-              buttonPosition={"bottom-right" as const}
+              position="bottom-right"
+              buttonPosition="bottom-right"
             />
           )}
         </ThemeProvider>
