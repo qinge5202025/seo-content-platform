@@ -54,6 +54,33 @@ export function ErrorBoundary({
   return (
     <div className="error-boundary">
       {children}
+      // src/components/providers.tsx
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'; // 确保导入路径正确
+
+// ... 其他代码
+
+function Providers({ children }: { children: React.ReactNode }) {
+  const [queryClient] = React.useState(() => new QueryClient());
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+      {process.env.NODE_ENV === 'development' && (
+        <ReactQueryDevtools
+          initialIsOpen={false}
+          // 将 position 修改为 'bottom' 或 'top'
+          // buttonPosition 则可以设置为 'bottom-left' 或 'bottom-right' 来控制按钮位置
+          position="bottom" // 或者 'top'
+          buttonPosition="bottom-left" // 或 'bottom-right'，这个通常可以放 left/right
+        />
+      )}
+    </QueryClientProvider>
+  );
+}
+
+export default Providers;
     </div>
   )
 }
