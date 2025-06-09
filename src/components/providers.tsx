@@ -3,7 +3,6 @@
 import { ThemeProvider } from 'next-themes'
 import { Toaster } from '@/components/ui/toaster'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-// 在文件顶部添加类型导入
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { SessionProvider } from 'next-auth/react'
 import { useState } from 'react'
@@ -19,30 +18,20 @@ export function Providers({ children, session }: ProvidersProps) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            // 数据缓存时间
-            staleTime: 60 * 1000, // 1分钟
-            // 缓存时间
-            gcTime: 10 * 60 * 1000, // 10分钟
-            // 重试次数
+            staleTime: 60 * 1000,
+            gcTime: 10 * 60 * 1000,
             retry: (failureCount, error: any) => {
-              // 4xx错误不重试
               if (error?.status >= 400 && error?.status < 500) {
                 return false
               }
-              // 最多重试2次
               return failureCount < 2
             },
-            // 重试延迟
             retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
-            // 窗口聚焦时重新获取
             refetchOnWindowFocus: false,
-            // 网络重连时重新获取
             refetchOnReconnect: true,
           },
           mutations: {
-            // 突变重试次数
             retry: 1,
-            // 突变重试延迟
             retryDelay: 1000,
           },
         },
@@ -74,11 +63,10 @@ export function Providers({ children, session }: ProvidersProps) {
   )
 }
 
-// 错误边界组件
-export function ErrorBoundary({ 
-  children, 
-  fallback 
-}: { 
+export function ErrorBoundary({
+  children,
+  fallback
+}: {
   children: React.ReactNode
   fallback?: React.ComponentType<{ error: Error; reset: () => void }>
 }) {
@@ -89,7 +77,6 @@ export function ErrorBoundary({
   )
 }
 
-// 加载组件
 export function LoadingProvider({ children }: { children: React.ReactNode }) {
   return (
     <div className="loading-provider">
@@ -98,7 +85,6 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
   )
 }
 
-// 全局状态管理
 export function GlobalStateProvider({ children }: { children: React.ReactNode }) {
   return (
     <div className="global-state-provider">
@@ -107,13 +93,12 @@ export function GlobalStateProvider({ children }: { children: React.ReactNode })
   )
 }
 
-// 组合所有Provider
-export function AppProviders({ 
-  children, 
-  session 
-}: { 
+export function AppProviders({
+  children,
+  session
+}: {
   children: React.ReactNode
-  session?: any 
+  session?: any
 }) {
   return (
     <ErrorBoundary>
