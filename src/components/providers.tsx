@@ -3,6 +3,7 @@
 import { ThemeProvider } from 'next-themes'
 import { Toaster } from '@/components/ui/toaster'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+// 在文件顶部添加类型导入
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { SessionProvider } from 'next-auth/react'
 import { useState } from 'react'
@@ -60,11 +61,12 @@ export function Providers({ children, session }: ProvidersProps) {
         >
           {children}
           <Toaster />
+          // 修改 ReactQueryDevtools 配置（大约第63-68行）
           {process.env.NODE_ENV === 'development' && (
             <ReactQueryDevtools 
               initialIsOpen={false} 
-              position="bottom-right"
-              buttonPosition="bottom-right"
+              position="bottom-right" as const
+              buttonPosition="bottom-right" as const
             />
           )}
         </ThemeProvider>
