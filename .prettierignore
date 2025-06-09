@@ -1,0 +1,120 @@
+# 依赖目录
+node_modules/
+
+# 构建输出
+.next/
+out/
+build/
+dist/
+
+# 缓存目录
+.cache/
+.parcel-cache/
+.nuxt/
+.vuepress/dist/
+
+# 日志文件
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# 运行时数据
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# 覆盖率目录
+coverage/
+*.lcov
+
+# 环境变量文件
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 编辑器和IDE文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 临时文件
+*.tmp
+*.temp
+
+# 压缩文件
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# 数据库文件
+*.sqlite
+*.db
+
+# 生成的文件
+*.min.js
+*.min.css
+
+# 文档生成
+docs/.vuepress/dist/
+
+# 测试输出
+test-results/
+
+# Storybook
+storybook-static/
+
+# 特定文件类型
+*.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# 配置文件（某些不需要格式化）
+*.config.js
+*.config.ts
+next.config.js
+tailwind.config.js
+postcss.config.js
+
+# 公共资源
+public/
+static/
+assets/
+
+# 第三方库
+vendor/
+lib/
+
+# 自动生成的类型文件
+*.d.ts
+types/generated/
+
+# Prisma生成文件
+prisma/migrations/
+
+# 其他
+.gitignore
+.eslintignore
+.prettierignore
+LICENSE
+CHANGELOG.md
