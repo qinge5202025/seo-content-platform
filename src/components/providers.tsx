@@ -1,11 +1,11 @@
 'use client'
 
 import { ThemeProvider } from 'next-themes'
-import { Toaster } from '@/components/ui/toaster'
+import { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { SessionProvider } from 'next-auth/react'
-import { useState } from 'react'
+import React, { createContext, useContext, useState, ReactNode } from 'react'
 
 interface ProvidersProps {
   children: React.ReactNode
@@ -13,48 +13,29 @@ interface ProvidersProps {
 }
 
 export function Providers({ children, session }: ProvidersProps) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 60 * 1000,
-            gcTime: 10 * 60 * 1000,
-            retry: (failureCount, error: any) => {
-              if (error?.status >= 400 && error?.status < 500) {
-                return false
-              }
-              return failureCount < 2
-            },
-            retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
-            refetchOnWindowFocus: false,
-            refetchOnReconnect: true,
-          },
-          mutations: {
-            retry: 1,
-            retryDelay: 1000,
-          },
-        },
-      })
-  )
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 1000,
+        refetchOnWindowFocus: false,
+      },
+    },
+  }))
 
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
-          themes={['light', 'dark', 'system']}
         >
           {children}
           <Toaster />
           {process.env.NODE_ENV === 'development' && (
             <ReactQueryDevtools 
-              initialIsOpen={false} 
-              position="bottom-left"
-              buttonPosition="bottom-left"
+              initialIsOpen={false}
             />
           )}
         </ThemeProvider>
