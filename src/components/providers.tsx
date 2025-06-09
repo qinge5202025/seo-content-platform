@@ -65,8 +65,8 @@ export function Providers({ children, session }: ProvidersProps) {
           {process.env.NODE_ENV === 'development' && (
             <ReactQueryDevtools 
               initialIsOpen={false} 
-              position="bottom-right" as const
-              buttonPosition="bottom-right" as const
+              position={"bottom-right" as const}
+              buttonPosition={"bottom-right" as const}
             />
           )}
         </ThemeProvider>
